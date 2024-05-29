@@ -1,11 +1,9 @@
 import os
 import environ
 from pathlib import Path
-from dotenv import load_dotenv
 from django.core.management.utils import get_env
 
 env_file = Path('.') / '.env'
-load_dotenv(env_file)
 
 env = environ.Env()
 environ.Env.read_env()
