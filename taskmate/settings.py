@@ -1,8 +1,5 @@
 import os
 import environ
-# import dj_database_url
-database_url = 'postgres://postgresql_r1qi_user:E3kyu1lynMHqakwHPxBEi0KXISQsW7gW@dpg-cpbp4hm3e1ms7399uc7g-a.oregon-postgres.render.com/taskmate-f17z.onrender.com'
-
 from pathlib import Path
 
 env = environ.Env()
