@@ -1,5 +1,8 @@
 import os
 import environ
+import dj_database_url
+database_url = os.environ.get('DATABASE_URL')
+
 from pathlib import Path
 
 env = environ.Env()
@@ -17,7 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DJANGO_DEBUG")
+DEBUG = os.environ.get('DEBUG', 'True')=="True"
+# env("DJANGO_DEBUG")
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'taskmate-f17z.onrender.com']
 CSRF_TRUSTED_ORIGINS = ['https://taskmate-f17z.onrender.com']
@@ -79,16 +83,40 @@ WSGI_APPLICATION = 'taskmate.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env("DJANGO_DB_NAME"),
-        'USER': env("DJANGO_DB_USER"),
-        'PASSWORD': env("DJANGO_DB_PASSWORD"),
-        'HOST': env("DJANGO_DB_HOST"),
-        'PORT': env("DJANGO_DB_PORT"),
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': env("DJANGO_DB_NAME"),
+#         'USER': env("DJANGO_DB_USER"),
+#         'PASSWORD': env("DJANGO_DB_PASSWORD"),
+#         'HOST': env("DJANGO_DB_HOST"),
+#         'PORT': env("DJANGO_DB_PORT"),
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get("DJANGO_DB_NAME"),
+#         'USER': os.environ.get("DJANGO_DB_USER"),
+#         'PASSWORD': os.environ.get("DJANGO_DB_PASSWORD"),
+#         'HOST': os.environ.get("DJANGO_DB_HOST"),
+#         'PORT': os.environ.get("DJANGO_DB_PORT"),
+#     }
+# }
+
+if not DEBUG:
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
-}
+
+else:
+    DATABASES = {
+        'default': {    
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 
@@ -129,6 +157,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
