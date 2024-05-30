@@ -1,6 +1,7 @@
 import os
 import environ
 from pathlib import Path
+import dj_database_url
 
 env = environ.Env()
 environ.Env.read_env()
@@ -17,7 +18,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DJANGO_DEBUG")
+# DEBUG = env("DJANGO_DEBUG")
+DEBUG = os.environ.get('DEBUG', 'True')=="True"
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'taskmate-f17z.onrender.com']
 CSRF_TRUSTED_ORIGINS = ['https://taskmate-f17z.onrender.com']
@@ -69,17 +71,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'taskmate.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-DATABASES = {
+if not DEBUG:
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+    
+else:
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': env("DJANGO_DB_NAME"),
@@ -89,8 +87,15 @@ DATABASES = {
         'PORT': env("DJANGO_DB_PORT"),
     }
 }
+# Database
+# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
