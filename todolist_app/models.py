@@ -10,7 +10,6 @@ class TaskList(models.Model):
     
     class Meta:
         ordering = ['id']
-        model = User
     
     def __str__(self):
         return self.task + " - " + str(self.done)
