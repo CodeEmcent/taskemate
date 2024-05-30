@@ -1,7 +1,7 @@
 import os
 import environ
-import dj_database_url
-database_url = os.environ.get('DATABASE_URL')
+# import dj_database_url
+database_url = 'postgres://postgresql_r1qi_user:E3kyu1lynMHqakwHPxBEi0KXISQsW7gW@dpg-cpbp4hm3e1ms7399uc7g-a.oregon-postgres.render.com/taskmate-f17z.onrender.com'
 
 from pathlib import Path
 
@@ -17,12 +17,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-qoalo3jz-b2r#z1ppzb%*cbi-$#yq1pgijj_0*!*r8cq7!eah_')
-# env("DJANGO_SECRET_KEY")
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True')=="True"
-# env("DJANGO_DEBUG")
+DEBUG = env("DJANGO_DEBUG")
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'taskmate-f17z.onrender.com']
 CSRF_TRUSTED_ORIGINS = ['https://taskmate-f17z.onrender.com']
@@ -84,27 +82,17 @@ WSGI_APPLICATION = 'taskmate.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': env("DJANGO_DB_NAME"),
-#         'USER': env("DJANGO_DB_USER"),
-#         'PASSWORD': env("DJANGO_DB_PASSWORD"),
-#         'HOST': env("DJANGO_DB_HOST"),
-#         'PORT': env("DJANGO_DB_PORT"),
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("DJANGO_DB_NAME"),
-        'USER': os.environ.get("DJANGO_DB_USER"),
-        'PASSWORD': os.environ.get("DJANGO_DB_PASSWORD"),
-        'HOST': os.environ.get("DJANGO_DB_HOST"),
-        'PORT': os.environ.get("DJANGO_DB_PORT"),
+        'NAME': env("DJANGO_DB_NAME"),
+        'USER': env("DJANGO_DB_USER"),
+        'PASSWORD': env("DJANGO_DB_PASSWORD"),
+        'HOST': env("DJANGO_DB_HOST"),
+        'PORT': env("DJANGO_DB_PORT"),
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
