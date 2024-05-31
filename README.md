@@ -1,8 +1,8 @@
-Taskmate
+# TASKMATE
 
 Taskmate is a task manager web application built using Django Framework. This project aimed to understand the workings of Django Framework along with its common features like MVT architecture, working with forms, default authentication, .env files and the deployment process on the Render platform along with PostgreSQL database.
 
-Screenshots
+# SCREENSHOTS
 
 ![Display of Task Page](https://github.com/CodeEmcent/taskmate/assets/100469174/218d2036-6ebe-40d9-b1e2-b978b99d9380)
 
@@ -14,6 +14,6 @@ Screenshots
 
 ![A little Media Query](https://github.com/CodeEmcent/taskmate/assets/100469174/4ebf2742-74a7-4234-bf19-4a7f3f15a254)
 
-##Demo
+# DEMO
 
 Deployed on Render - taskmate-f17z.onrender.com/
